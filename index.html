@@ -33,9 +33,9 @@
     header {
       background: rgba(26, 0, 31, 0.95);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 15px 30px;
+      padding: 20px 30px;
       border-bottom: 2px solid #ffcf33;
       position: sticky;
       top: 0;
@@ -43,17 +43,27 @@
       backdrop-filter: blur(10px);
     }
 
+    /* Logo animado */
     .logo {
-      height: 70px;
+      height: 90px;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
     }
 
     /* Botón hamburguesa animado */
     .menu-icon {
       width: 30px;
       height: 22px;
-      position: relative;
+      position: absolute;
+      right: 25px;
+      top: 40%;
       cursor: pointer;
       z-index: 1002;
+      transform: translateY(-50%);
     }
 
     .menu-icon span {
@@ -107,7 +117,7 @@
     .menu-item {
       background: rgba(255, 207, 51, 0.08);
       border: 2px solid #ffcf33;
-      border-radius: 12px;
+      border-radius: 15px;
       width: 200px;
       margin: 20px auto;
       padding: 20px 0;
@@ -135,6 +145,7 @@
       font-size: 1.1em;
     }
 
+    /* Hero principal */
     .hero {
       height: 100vh;
       background: url('onryx.png') center/cover no-repeat;
@@ -193,6 +204,7 @@
       box-shadow: 0 0 25px rgba(255, 207, 51, 0.7);
     }
 
+    /* Sección de modos */
     section#modos {
       background: linear-gradient(180deg, #1a001f, #2a0033);
       text-align: center;
@@ -254,6 +266,54 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background: #2a0033;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      border: 2px solid #ffcf33;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
+    }
+
+    .popup-content h2 {
+      color: #ffcf33;
+      margin-bottom: 15px;
+    }
+
+    .popup-content p {
+      margin: 10px 0;
+    }
+
+    .close-btn {
+      background-color: #ffcf33;
+      color: #1a001f;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
@@ -312,6 +372,15 @@
     </div>
   </section>
 
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Conéctate a OnryxCraft</h2>
+      <p><strong>IP Java & Bedrock:</strong><br> onryxcraft.xyz</p>
+      <p><strong>Puerto Bedrock:</strong> 25864</p>
+      <button class="close-btn" onclick="closePopup()">Cerrar</button>
+    </div>
+  </div>
+
   <footer>
     <p>© 2025 OnryxCraft Network | Todos los derechos reservados</p>
   </footer>
@@ -355,6 +424,15 @@
       menuIcon.classList.toggle('open');
       sideMenu.classList.toggle('open');
     });
+
+    // Popup
+    function openPopup() {
+      document.getElementById('popup').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
 
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
