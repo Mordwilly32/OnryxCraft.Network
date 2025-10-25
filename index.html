@@ -20,7 +20,7 @@
     }
 
     header {
-      background: #1a001f;
+      background: rgba(26, 0, 31, 0.95);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -29,19 +29,21 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      backdrop-filter: blur(10px);
     }
 
     .logo {
-      height: 80px;
-      margin: 0 auto;
-      display: block;
+      height: 70px;
     }
 
     .menu-icon {
-      font-size: 28px;
+      font-size: 30px;
       cursor: pointer;
-      position: absolute;
-      right: 25px;
+      transition: transform 0.3s;
+    }
+
+    .menu-icon:hover {
+      transform: rotate(90deg);
     }
 
     /* Menú lateral */
@@ -54,9 +56,10 @@
       background-color: #2a0033;
       border-left: 2px solid #ffcf33;
       transition: right 0.4s ease;
-      padding-top: 60px;
+      padding-top: 100px;
       text-align: center;
       z-index: 1001;
+      box-shadow: -5px 0 15px rgba(255, 207, 51, 0.2);
     }
 
     .side-menu.open {
@@ -69,11 +72,13 @@
       text-decoration: none;
       margin: 20px 0;
       font-weight: 600;
-      transition: color 0.3s;
+      font-size: 1.1em;
+      transition: color 0.3s, transform 0.3s;
     }
 
     .side-menu a:hover {
       color: #ffcf33;
+      transform: scale(1.1);
     }
 
     .hero {
@@ -111,26 +116,91 @@
     .hero h1 {
       font-size: 3.5em;
       color: #ffcf33;
-      margin-bottom: 20px;
-      text-shadow: 0 0 15px #ffcf33;
+      margin-bottom: 25px;
+      text-shadow: 0 0 20px #ffcf33;
     }
 
     .btn {
       background-color: #ffcf33;
       color: #1a001f;
-      padding: 14px 30px;
-      border-radius: 10px;
+      padding: 14px 35px;
+      border-radius: 12px;
       font-size: 1.1em;
       font-weight: 700;
       text-decoration: none;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: all 0.3s;
+      box-shadow: 0 0 15px rgba(255, 207, 51, 0.4);
     }
 
     .btn:hover {
       transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(255, 207, 51, 0.7);
     }
 
+    /* Modos de juego */
+    section#modos {
+      background: linear-gradient(180deg, #1a001f, #2a0033);
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    section#modos h2 {
+      color: #ffcf33;
+      font-size: 2.8em;
+      margin-bottom: 50px;
+      animation: fadeInDown 1s ease;
+      text-shadow: 0 0 12px #ffcf33;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modes {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .mode {
+      background-color: #2a0033;
+      border: 2px solid #ffcf33;
+      border-radius: 20px;
+      padding: 35px 25px;
+      width: 260px;
+      transition: transform 0.4s, background 0.3s, box-shadow 0.3s;
+      animation: zoomIn 1s ease;
+      box-shadow: 0 0 15px rgba(255, 207, 51, 0.1);
+    }
+
+    .mode:hover {
+      transform: translateY(-10px) scale(1.05);
+      background-color: #3d004d;
+      box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
+    }
+
+    .mode h3 {
+      color: #ffcf33;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .mode span.emoji {
+      font-size: 2.5em;
+      display: block;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ffcf33;
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Popup */
     .popup {
       display: none;
       position: fixed;
@@ -150,12 +220,13 @@
       border-radius: 15px;
       text-align: center;
       border: 2px solid #ffcf33;
-      width: 300px;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
     }
 
     .popup-content h2 {
       color: #ffcf33;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     .popup-content p {
@@ -166,7 +237,7 @@
       background-color: #ffcf33;
       color: #1a001f;
       border: none;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
@@ -177,56 +248,12 @@
       transform: scale(1.05);
     }
 
-    section#modos {
-      background: linear-gradient(180deg, #1a001f, #2a0033);
-      text-align: center;
-      padding: 80px 20px;
-    }
-
-    section#modos h2 {
-      color: #ffcf33;
-      font-size: 2.5em;
-      margin-bottom: 40px;
-      animation: fadeInDown 1s ease;
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modes {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
-
-    .mode {
-      background-color: #2a0033;
-      border: 2px solid #ffcf33;
-      border-radius: 15px;
-      padding: 25px;
-      width: 250px;
-      transition: transform 0.4s, background 0.3s;
-      animation: zoomIn 1s ease;
-    }
-
-    .mode:hover {
-      transform: translateY(-10px) scale(1.05);
-      background-color: #3d004d;
-    }
-
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     footer {
       text-align: center;
       padding: 30px;
       background-color: #12001a;
       color: #aaa;
+      font-size: 0.9em;
     }
   </style>
 </head>
@@ -238,7 +265,6 @@
   </header>
 
   <div class="side-menu" id="sideMenu">
-    <a href="#modos">Modos</a>
     <a href="reglas.html">Reglas</a>
     <a href="https://onryxcraft.tebex.io/" target="_blank">Tienda</a>
   </div>
@@ -254,14 +280,17 @@
     <h2>Modos de Juego</h2>
     <div class="modes">
       <div class="mode">
+        <span class="emoji">⚔️</span>
         <h3>FullPvP</h3>
         <p>Demuestra tus habilidades en combates intensos y domina la arena.</p>
       </div>
       <div class="mode">
+        <span class="emoji">🌍</span>
         <h3>Survival 1.20</h3>
         <p>Explora, construye y sobrevive en un mundo lleno de aventuras.</p>
       </div>
       <div class="mode">
+        <span class="emoji">🛡️</span>
         <h3>Próximamente: Práctica 1.21</h3>
         <p>Entrena tus técnicas PvP y prepárate para los grandes duelos.</p>
       </div>
