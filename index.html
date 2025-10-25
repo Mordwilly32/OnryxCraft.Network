@@ -1,298 +1,431 @@
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnryxCraft Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-  body {
-    background-color: #12001a;
-    color: white;
-    overflow-x: hidden;
-    position: relative;
-  }
+    body {
+      background-color: #12001a;
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-  canvas#particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-  }
+    canvas#particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  header {
-    background: rgba(26, 0, 31, 0.95);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 30px;
-    border-bottom: 2px solid #ffcf33;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(10px);
-  }
+    header {
+      background: rgba(26, 0, 31, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 2px solid #ffcf33;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
 
-  /* Logo animado */
-  .logo {
-    height: 90px;
-    animation: pulse 4s ease-in-out infinite;
-  }
+    /* Logo animado */
+    .logo {
+      height: 90px;
+      animation: pulse 4s ease-in-out infinite;
+    }
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-  }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
 
-  /* Botón hamburguesa animado */
-  .menu-icon {
-    width: 30px;
-    height: 22px;
-    position: absolute;
-    right: 25px;
-    top: 40%;
-    cursor: pointer;
-    z-index: 1002;
-    transform: translateY(-50%);
-  }
+    /* Botón hamburguesa animado */
+    .menu-icon {
+      width: 30px;
+      height: 22px;
+      position: absolute;
+      right: 25px;
+      top: 40%;
+      cursor: pointer;
+      z-index: 1002;
+      transform: translateY(-50%);
+    }
 
-  .menu-icon span {
-    background-color: #ffcf33;
-    position: absolute;
-    height: 4px;
-    width: 100%;
-    border-radius: 2px;
-    left: 0;
-    transition: all 0.4s ease;
-  }
+    .menu-icon span {
+      background-color: #ffcf33;
+      position: absolute;
+      height: 4px;
+      width: 100%;
+      border-radius: 2px;
+      left: 0;
+      transition: all 0.4s ease;
+    }
 
-  .menu-icon span:nth-child(1) { top: 0; }
-  .menu-icon span:nth-child(2) { top: 9px; }
-  .menu-icon span:nth-child(3) { top: 18px; }
+    .menu-icon span:nth-child(1) { top: 0; }
+    .menu-icon span:nth-child(2) { top: 9px; }
+    .menu-icon span:nth-child(3) { top: 18px; }
 
-  /* Bloque eliminado/modificado: Ahora el icono SIEMPRE es de 3 líneas */
+    /* ELIMINADO: Bloque CSS que transforma el icono en una "X" al abrir el menú */
 
-  /* Menú lateral */
-  .side-menu {
-    position: fixed;
-    top: 0;
-    right: -280px;
-    width: 260px;
-    height: 100%;
-    background-color: rgba(42, 0, 51, 0.98);
-    border-left: 2px solid #ffcf33;
-    transition: right 0.4s ease;
-    padding-top: 120px;
-    text-align: center;
-    z-index: 1001;
-    box-shadow: -5px 0 15px rgba(255, 207, 51, 0.25);
-  }
+    /* Menú lateral */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 260px;
+      height: 100%;
+      background-color: rgba(42, 0, 51, 0.98);
+      border-left: 2px solid #ffcf33;
+      transition: right 0.4s ease;
+      padding-top: 120px;
+      text-align: center;
+      z-index: 1001;
+      box-shadow: -5px 0 15px rgba(255, 207, 51, 0.25);
+    }
 
-  .side-menu.open {
-    right: 0;
-  }
+    .side-menu.open {
+      right: 0;
+    }
 
-  .menu-item {
-    background: rgba(255, 207, 51, 0.08);
-    border: 2px solid #ffcf33;
-    border-radius: 15px;
-    width: 200px;
-    margin: 20px auto;
-    padding: 20px 0;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
+    .menu-item {
+      background: rgba(255, 207, 51, 0.08);
+      border: 2px solid #ffcf33;
+      border-radius: 15px;
+      width: 200px;
+      margin: 20px auto;
+      padding: 20px 0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
 
-  .menu-item:hover {
-    background: rgba(255, 207, 51, 0.15);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 207, 51, 0.3);
-  }
+    .menu-item:hover {
+      background: rgba(255, 207, 51, 0.15);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 207, 51, 0.3);
+    }
 
-  .menu-item span {
-    display: block;
-    font-size: 1.8em;
-    margin-bottom: 8px;
-    text-shadow: 0 0 10px #ffcf33;
-  }
+    .menu-item span {
+      display: block;
+      font-size: 1.8em;
+      margin-bottom: 8px;
+      text-shadow: 0 0 10px #ffcf33;
+    }
 
-  .menu-item a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1em;
-  }
+    .menu-item a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
+    }
 
-  /* Hero principal */
-  .hero {
-    height: 100vh;
-    background: url('onryx.png') center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
+    /* Hero principal */
+    .hero {
+      height: 100vh;
+      background: url('onryx.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
 
-  .hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-  }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
 
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    animation: fadeIn 1.2s ease;
-  }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.2s ease;
+    }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-  .hero h1 {
-    font-size: 3.5em;
-    color: #ffcf33;
-    margin-bottom: 25px;
-    text-shadow: 0 0 20px #ffcf33;
-  }
+    .hero h1 {
+      font-size: 3.5em;
+      color: #ffcf33;
+      margin-bottom: 25px;
+      text-shadow: 0 0 20px #ffcf33;
+    }
 
-  .btn {
-    background-color: #ffcf33;
-    color: #1a001f;
-    padding: 14px 35px;
-    border-radius: 12px;
-    font-size: 1.1em;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 0 15px rgba(255, 207, 51, 0.4);
-  }
+    .btn {
+      background-color: #ffcf33;
+      color: #1a001f;
+      padding: 14px 35px;
+      border-radius: 12px;
+      font-size: 1.1em;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 15px rgba(255, 207, 51, 0.4);
+    }
 
-  .btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(255, 207, 51, 0.7);
-  }
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(255, 207, 51, 0.7);
+    }
 
-  /* Sección de modos */
-  section#modos {
-    background: linear-gradient(180deg, #1a001f, #2a0033);
-    text-align: center;
-    padding: 90px 20px;
-    position: relative;
-    z-index: 1;
-  }
+    /* Sección de modos */
+    section#modos {
+      background: linear-gradient(180deg, #1a001f, #2a0033);
+      text-align: center;
+      padding: 90px 20px;
+      position: relative;
+      z-index: 1;
+    }
 
-  section#modos h2 {
-    color: #ffcf33;
-    font-size: 2.8em;
-    margin-bottom: 50px;
-    text-shadow: 0 0 12px #ffcf33;
-  }
+    section#modos h2 {
+      color: #ffcf33;
+      font-size: 2.8em;
+      margin-bottom: 50px;
+      text-shadow: 0 0 12px #ffcf33;
+    }
 
-  .modes {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-  }
+    .modes {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
 
-  .mode {
-    background-color: #2a0033;
-    border: 2px solid #ffcf33;
-    border-radius: 20px;
-    padding: 35px 25px;
-    width: 260px;
-    transition: all 0.4s;
-    animation: zoomIn 1s ease;
-    box-shadow: 0 0 15px rgba(255, 207, 51, 0.1);
-  }
+    .mode {
+      background-color: #2a0033;
+      border: 2px solid #ffcf33;
+      border-radius: 20px;
+      padding: 35px 25px;
+      width: 260px;
+      transition: all 0.4s;
+      animation: zoomIn 1s ease;
+      box-shadow: 0 0 15px rgba(255, 207, 51, 0.1);
+    }
 
-  .mode:hover {
-    transform: translateY(-10px) scale(1.05);
-    background-color: #3d004d;
-    box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
-  }
+    .mode:hover {
+      transform: translateY(-10px) scale(1.05);
+      background-color: #3d004d;
+      box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
+    }
 
-  .mode h3 {
-    color: #ffcf33;
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
+    .mode h3 {
+      color: #ffcf33;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
 
-  .mode span.emoji {
-    font-size: 2.5em;
-    display: block;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px #ffcf33;
-  }
+    .mode span.emoji {
+      font-size: 2.5em;
+      display: block;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ffcf33;
+    }
 
-  footer {
-    text-align: center;
-    padding: 30px;
-    background-color: #12001a;
-    color: #aaa;
-    font-size: 0.9em;
-    position: relative;
-    z-index: 1;
-  }
+    footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #12001a;
+      color: #aaa;
+      font-size: 0.9em;
+      position: relative;
+      z-index: 1;
+    }
 
-  /* Popup */
-  .popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
-  .popup-content {
-    background: #2a0033;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    border: 2px solid #ffcf33;
-    width: 320px;
-    box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
-  }
+    .popup-content {
+      background: #2a0033;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      border: 2px solid #ffcf33;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
+    }
 
-  .popup-content h2 {
-    color: #ffcf33;
-    margin-bottom: 15px;
-  }
+    .popup-content h2 {
+      color: #ffcf33;
+      margin-bottom: 15px;
+    }
 
-  .popup-content p {
-    margin: 10px 0;
-  }
+    .popup-content p {
+      margin: 10px 0;
+    }
 
-  .close-btn {
-    background-color: #ffcf33;
-    color: #1a001f;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.3s;
-  }
+    .close-btn {
+      background-color: #ffcf33;
+      color: #1a001f;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
 
-  .close-btn:hover {
-    transform: scale(1.05);
-  }
-</style>
+    .close-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <header>
+    <img src="icon.png" alt="OnryxCraft Icon" class="logo">
+    <div class="menu-icon" id="menuIcon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <div class="side-menu" id="sideMenu">
+    <div class="menu-item">
+      <span>⚖️</span>
+      <a href="reglas.html">Reglas</a>
+    </div>
+    <div class="menu-item">
+      <span>💎</span>
+      <a href="https://onryxcraft.tebex.io/" target="_blank">Tienda</a>
+    </div>
+    <div class="menu-item">
+      <span>🎮</span>
+      <a href="#modos">Modos de Juego</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Bienvenido a OnryxCraft</h1>
+      <button class="btn" onclick="openPopup()">Jugar Ahora</button>
+    </div>
+  </section>
+
+  <section id="modos">
+    <h2>Modos de Juego</h2>
+    <div class="modes">
+      <div class="mode">
+        <span class="emoji">⚔️</span>
+        <h3>FullPvP</h3>
+        <p>Demuestra tus habilidades en combates intensos y domina la arena.</p>
+      </div>
+      <div class="mode">
+        <span class="emoji">🌍</span>
+        <h3>Survival 1.20</h3>
+        <p>Explora, construye y sobrevive en un mundo lleno de aventuras.</p>
+      </div>
+      <div class="mode">
+        <span class="emoji">🛡️</span>
+        <h3>Próximamente: Práctica 1.21</h3>
+        <p>Entrena tus técnicas PvP y prepárate para los grandes duelos.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Conéctate a OnryxCraft</h2>
+      <p><strong>IP Java & Bedrock:</strong><br> onryxcraft.xyz</p>
+      <p><strong>Puerto Bedrock:</strong> 25864</p>
+      <button class="close-btn" onclick="closePopup()">Cerrar</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 OnryxCraft Network | Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Partículas pixeladas
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 0.6,
+        speedY: (Math.random() - 0.5) * 0.6,
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ffcf33';
+      particles.forEach(p => {
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // Botón menú animado
+    const menuIcon = document.getElementById('menuIcon');
+    const sideMenu = document.getElementById('sideMenu');
+    menuIcon.addEventListener('click', () => {
+      menuIcon.classList.toggle('open');
+      sideMenu.classList.toggle('open');
+    });
+
+    // Popup
+    function openPopup() {
+      document.getElementById('popup').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
