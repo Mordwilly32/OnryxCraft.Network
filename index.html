@@ -17,6 +17,17 @@
       background-color: #12001a;
       color: white;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    canvas#particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
 
     header {
@@ -28,7 +39,7 @@
       border-bottom: 2px solid #ffcf33;
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 10;
       backdrop-filter: blur(10px);
     }
 
@@ -36,49 +47,92 @@
       height: 70px;
     }
 
+    /* Botón hamburguesa animado */
     .menu-icon {
-      font-size: 30px;
+      width: 30px;
+      height: 22px;
+      position: relative;
       cursor: pointer;
-      transition: transform 0.3s;
+      z-index: 1002;
     }
 
-    .menu-icon:hover {
-      transform: rotate(90deg);
+    .menu-icon span {
+      background-color: #ffcf33;
+      position: absolute;
+      height: 4px;
+      width: 100%;
+      border-radius: 2px;
+      left: 0;
+      transition: all 0.4s ease;
+    }
+
+    .menu-icon span:nth-child(1) { top: 0; }
+    .menu-icon span:nth-child(2) { top: 9px; }
+    .menu-icon span:nth-child(3) { top: 18px; }
+
+    .menu-icon.open span:nth-child(1) {
+      transform: rotate(45deg);
+      top: 9px;
+    }
+
+    .menu-icon.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-icon.open span:nth-child(3) {
+      transform: rotate(-45deg);
+      top: 9px;
     }
 
     /* Menú lateral */
     .side-menu {
       position: fixed;
       top: 0;
-      right: -250px;
-      width: 250px;
+      right: -280px;
+      width: 260px;
       height: 100%;
-      background-color: #2a0033;
+      background-color: rgba(42, 0, 51, 0.98);
       border-left: 2px solid #ffcf33;
       transition: right 0.4s ease;
-      padding-top: 100px;
+      padding-top: 120px;
       text-align: center;
       z-index: 1001;
-      box-shadow: -5px 0 15px rgba(255, 207, 51, 0.2);
+      box-shadow: -5px 0 15px rgba(255, 207, 51, 0.25);
     }
 
     .side-menu.open {
       right: 0;
     }
 
-    .side-menu a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin: 20px 0;
-      font-weight: 600;
-      font-size: 1.1em;
-      transition: color 0.3s, transform 0.3s;
+    .menu-item {
+      background: rgba(255, 207, 51, 0.08);
+      border: 2px solid #ffcf33;
+      border-radius: 12px;
+      width: 200px;
+      margin: 20px auto;
+      padding: 20px 0;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
 
-    .side-menu a:hover {
-      color: #ffcf33;
-      transform: scale(1.1);
+    .menu-item:hover {
+      background: rgba(255, 207, 51, 0.15);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 207, 51, 0.3);
+    }
+
+    .menu-item span {
+      display: block;
+      font-size: 1.8em;
+      margin-bottom: 8px;
+      text-shadow: 0 0 10px #ffcf33;
+    }
+
+    .menu-item a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1em;
     }
 
     .hero {
@@ -90,6 +144,7 @@
       align-items: center;
       text-align: center;
       position: relative;
+      z-index: 1;
     }
 
     .hero::after {
@@ -104,7 +159,7 @@
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       animation: fadeIn 1.2s ease;
     }
 
@@ -138,24 +193,19 @@
       box-shadow: 0 0 25px rgba(255, 207, 51, 0.7);
     }
 
-    /* Modos de juego */
     section#modos {
       background: linear-gradient(180deg, #1a001f, #2a0033);
       text-align: center;
       padding: 90px 20px;
+      position: relative;
+      z-index: 1;
     }
 
     section#modos h2 {
       color: #ffcf33;
       font-size: 2.8em;
       margin-bottom: 50px;
-      animation: fadeInDown 1s ease;
       text-shadow: 0 0 12px #ffcf33;
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .modes {
@@ -171,7 +221,7 @@
       border-radius: 20px;
       padding: 35px 25px;
       width: 260px;
-      transition: transform 0.4s, background 0.3s, box-shadow 0.3s;
+      transition: all 0.4s;
       animation: zoomIn 1s ease;
       box-shadow: 0 0 15px rgba(255, 207, 51, 0.1);
     }
@@ -195,78 +245,43 @@
       text-shadow: 0 0 10px #ffcf33;
     }
 
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* Popup */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .popup-content {
-      background: #2a0033;
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      border: 2px solid #ffcf33;
-      width: 320px;
-      box-shadow: 0 0 20px rgba(255, 207, 51, 0.3);
-    }
-
-    .popup-content h2 {
-      color: #ffcf33;
-      margin-bottom: 15px;
-    }
-
-    .popup-content p {
-      margin: 10px 0;
-    }
-
-    .close-btn {
-      background-color: #ffcf33;
-      color: #1a001f;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.3s;
-    }
-
-    .close-btn:hover {
-      transform: scale(1.05);
-    }
-
     footer {
       text-align: center;
       padding: 30px;
       background-color: #12001a;
       color: #aaa;
       font-size: 0.9em;
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 
+  <canvas id="particles"></canvas>
+
   <header>
     <img src="icon.png" alt="OnryxCraft Icon" class="logo">
-    <span class="menu-icon" onclick="toggleMenu()">☰</span>
+    <div class="menu-icon" id="menuIcon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
 
   <div class="side-menu" id="sideMenu">
-    <a href="reglas.html">Reglas</a>
-    <a href="https://onryxcraft.tebex.io/" target="_blank">Tienda</a>
+    <div class="menu-item">
+      <span>⚖️</span>
+      <a href="reglas.html">Reglas</a>
+    </div>
+    <div class="menu-item">
+      <span>💎</span>
+      <a href="https://onryxcraft.tebex.io/" target="_blank">Tienda</a>
+    </div>
+    <div class="menu-item">
+      <span>🎮</span>
+      <a href="#modos">Modos de Juego</a>
+    </div>
   </div>
 
   <section class="hero">
@@ -297,33 +312,54 @@
     </div>
   </section>
 
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h2>Conéctate a OnryxCraft</h2>
-      <p><strong>IP Java & Bedrock:</strong><br> onryxcraft.xyz</p>
-      <p><strong>Puerto Bedrock:</strong> 25864</p>
-      <button class="close-btn" onclick="closePopup()">Cerrar</button>
-    </div>
-  </div>
-
   <footer>
     <p>© 2025 OnryxCraft Network | Todos los derechos reservados</p>
   </footer>
 
   <script>
-    function openPopup() {
-      document.getElementById('popup').style.display = 'flex';
+    // Partículas pixeladas
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 0.6,
+        speedY: (Math.random() - 0.5) * 0.6,
+      });
     }
 
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ffcf33';
+      particles.forEach(p => {
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+      });
+      requestAnimationFrame(drawParticles);
     }
+    drawParticles();
 
-    function toggleMenu() {
-      const menu = document.getElementById('sideMenu');
-      menu.classList.toggle('open');
-    }
+    // Botón menú animado
+    const menuIcon = document.getElementById('menuIcon');
+    const sideMenu = document.getElementById('sideMenu');
+    menuIcon.addEventListener('click', () => {
+      menuIcon.classList.toggle('open');
+      sideMenu.classList.toggle('open');
+    });
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
-
 </body>
 </html>
