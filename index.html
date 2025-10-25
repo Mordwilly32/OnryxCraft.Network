@@ -14,37 +14,36 @@
     }
 
     body {
-      background-color: #1a001f;
+      background-color: #12001a;
       color: white;
       overflow-x: hidden;
     }
 
     header {
-      background: linear-gradient(90deg, #5b007a, #ffcf33);
+      background: #1a001f;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 40px;
+      padding: 15px 30px;
+      border-bottom: 2px solid #ffcf33;
       position: sticky;
       top: 0;
       z-index: 1000;
-      animation: fadeInDown 1s ease;
     }
 
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    header img.logo {
+      height: 40px;
     }
 
-    header h1 {
-      font-size: 1.8em;
-      font-weight: 700;
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 15px;
       font-weight: 600;
       transition: color 0.3s;
     }
@@ -53,35 +52,53 @@
       color: #ffcf33;
     }
 
+    .menu-icon {
+      font-size: 26px;
+      cursor: pointer;
+    }
+
     .hero {
+      height: 100vh;
+      background: url('onryx.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      padding: 100px 20px;
-      background: linear-gradient(180deg, #290033, #1a001f);
-      animation: fadeIn 1.2s ease;
+      position: relative;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
     }
 
-    .hero h2 {
-      font-size: 3em;
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5em;
       color: #ffcf33;
-    }
-
-    .hero p {
-      font-size: 1.3em;
-      margin: 20px 0;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px #ffcf33;
     }
 
     .btn {
       background-color: #ffcf33;
       color: #1a001f;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-weight: bold;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: 700;
       text-decoration: none;
+      cursor: pointer;
       transition: transform 0.3s;
     }
 
@@ -89,36 +106,51 @@
       transform: scale(1.1);
     }
 
-    section {
-      padding: 60px 20px;
-      text-align: center;
-      animation: fadeUp 1s ease;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modes {
-      display: flex;
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
+      align-items: center;
+      z-index: 9999;
     }
 
-    .mode {
-      background-color: #2a0033;
-      border: 2px solid #ffcf33;
+    .popup-content {
+      background: #2a0033;
+      padding: 30px;
       border-radius: 15px;
-      padding: 25px;
-      width: 250px;
-      transition: transform 0.3s, background 0.3s;
+      text-align: center;
+      border: 2px solid #ffcf33;
+      width: 300px;
     }
 
-    .mode:hover {
-      transform: translateY(-10px);
-      background-color: #3d004d;
+    .popup-content h2 {
+      color: #ffcf33;
+      margin-bottom: 10px;
+    }
+
+    .popup-content p {
+      margin: 10px 0;
+    }
+
+    .close-btn {
+      background-color: #ffcf33;
+      color: #1a001f;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.05);
     }
 
     footer {
@@ -126,49 +158,48 @@
       padding: 30px;
       background-color: #12001a;
       color: #aaa;
-      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>OnryxCraft Network</h1>
+    <img src="icon.png" alt="OnryxCraft Icon" class="logo">
     <nav>
-      <a href="#modos">Modos</a>
-      <a href="reglas.html">Reglas</a>
       <a href="https://onryxcraft.tebex.io/" target="_blank">Tienda</a>
+      <span class="menu-icon">☰</span>
     </nav>
   </header>
 
   <section class="hero">
-    <h2>Bienvenido a OnryxCraft</h2>
-    <p>Un servidor con modos únicos y una comunidad increíble. ¡Únete hoy mismo!</p>
-    <a href="https://onryxcraft.tebex.io/" target="_blank" class="btn">Visitar Tienda</a>
-  </section>
-
-  <section id="modos">
-    <h2>Modos de Juego</h2>
-    <div class="modes">
-      <div class="mode">
-        <h3>FullPvP</h3>
-        <p>Demuestra tus habilidades en combates intensos y domina la arena.</p>
-      </div>
-      <div class="mode">
-        <h3>Survival 1.20</h3>
-        <p>Explora, construye y sobrevive en un mundo lleno de aventuras.</p>
-      </div>
-      <div class="mode">
-        <h3>Próximamente: Práctica 1.21</h3>
-        <p>Entrena tus técnicas PvP y prepárate para los grandes duelos.</p>
-      </div>
+    <div class="hero-content">
+      <h1>Bienvenido a OnryxCraft</h1>
+      <button class="btn" onclick="openPopup()">Jugar Ahora</button>
     </div>
   </section>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Conéctate a OnryxCraft</h2>
+      <p><strong>IP Java & Bedrock:</strong><br> onryxcraft.xyz</p>
+      <p><strong>Puerto Bedrock:</strong> 25864</p>
+      <button class="close-btn" onclick="closePopup()">Cerrar</button>
+    </div>
+  </div>
 
   <footer>
     <p>© 2025 OnryxCraft Network | Todos los derechos reservados</p>
   </footer>
 
+  <script>
+    function openPopup() {
+      document.getElementById('popup').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+
 </body>
 </html>
-
