@@ -6,6 +6,69 @@
   <title>OnryxCraft Network</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* --- Pantalla de carga --- */
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: #12001a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 99999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-logo {
+  width: 150px;
+  animation: pulseLogo 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px #a300ff);
+}
+
+@keyframes pulseLogo {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.loader-bar {
+  width: 300px;
+  height: 12px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  margin-top: 25px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(163, 0, 255, 0.4);
+}
+
+.loader-progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #7a00ff, #b100ff);
+  border-radius: 10px;
+  animation: loadProgress 3s ease-in-out forwards;
+}
+
+@keyframes loadProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.loader-text {
+  margin-top: 20px;
+  font-size: 1.1em;
+  color: #d7b3ff;
+  letter-spacing: 1px;
+}
     .stats {
   display: flex;
   justify-content: center;
@@ -329,6 +392,16 @@
   </style>
 </head>
 <body>
+  <!-- Pantalla de carga -->
+<div id="preloader">
+  <div class="loader-content">
+    <img src="onryx.png" alt="OnryxCraft Logo" class="loader-logo">
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+    <p class="loader-text">Cargando OnryxCraft...</p>
+  </div>
+</div>
   <canvas id="particles"></canvas>
 
   <header>
@@ -514,5 +587,13 @@
     function closePopup(id){document.getElementById(id).style.display='none';}
     window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
   </script>
+  <script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    setTimeout(() => {
+      preloader.classList.add("hidden");
+    }, 3200); // dura lo mismo que la animación (3s) + un poco más
+  });
+</script>
 </body>
 </html>
