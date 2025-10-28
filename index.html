@@ -6,6 +6,49 @@
   <title>OnryxCraft Network</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    .stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  animation: fadeIn 1.5s ease;
+}
+
+.stat {
+  background: rgba(255, 207, 51, 0.1);
+  border: 2px solid #ffcf33;
+  border-radius: 20px;
+  padding: 20px 25px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 207, 51, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stat:hover {
+  transform: scale(1.05);
+  background: rgba(255, 207, 51, 0.18);
+  box-shadow: 0 0 25px rgba(255, 207, 51, 0.4);
+}
+
+.stat .emoji {
+  font-size: 2.2em;
+  display: block;
+  margin-bottom: 8px;
+  text-shadow: 0 0 10px #ffcf33;
+}
+
+.stat h3 {
+  color: #ffcf33;
+  font-size: 1.3em;
+  margin-bottom: 6px;
+}
+
+.stat p {
+  color: #ddd;
+  font-size: 0.9em;
+}
     * {
       margin: 0;
       padding: 0;
@@ -305,6 +348,23 @@
     <div class="hero-content">
       <h1>Bienvenido a OnryxCraft</h1>
       <button class="btn" onclick="openPopup('popupIP')">Jugar Ahora</button>
+      <div class="stats">
+  <div class="stat">
+    <span class="emoji">💬</span>
+    <h3>Más de 300 miembros</h3>
+    <p>Únete a nuestra comunidad activa en Discord.</p>
+  </div>
+  <div class="stat">
+    <span class="emoji">🎮</span>
+    <h3>Modos muy divertidos</h3>
+    <p>Descubre diferentes formas de jugar y competir.</p>
+  </div>
+  <div class="stat">
+    <span class="emoji">🚧</span>
+    <h3>Servidor en beta</h3>
+    <p>Estamos mejorando cada día gracias a tu apoyo.</p>
+  </div>
+</div>
     </div>
   </section>
 
